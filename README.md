@@ -1,4 +1,4 @@
-# Steve Thomas, portfolio
+# Portfolio
 
 A static portfolio built with Astro. The hero is a typo-tolerant search over the page's own entries. Every row is rendered at build time, so the page works without JavaScript, and one small module filters the rows when scripts are on.
 
