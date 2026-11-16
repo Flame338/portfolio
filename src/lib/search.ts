@@ -2,7 +2,7 @@ import type { Entry } from '../data/portfolio.ts';
 
 export type Searchable = Pick<Entry, 'title' | 'line' | 'tag' | 'keywords'>;
 
-const FUZZY_MIN_LENGTH = 4;
+const FUZZY_MIN_LENGTH = 5;
 
 export function tokenize(text: string): string[] {
   return text

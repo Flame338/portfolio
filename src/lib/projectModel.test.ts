@@ -16,6 +16,12 @@ describe('sortProjects', () => {
     assert.deepEqual(slugs(sorted), ['a', 'b']);
   });
 
+  it('puts a featured project ahead of a newer one that is not featured', () => {
+    const older = project('old', 'Old', '2026-01-01T00:00:00Z', { featured: true });
+    const newer = project('new', 'New', '2026-06-01T00:00:00Z', { featured: false });
+    assert.deepEqual(slugs(sortProjects([newer, older])), ['old', 'new']);
+  });
+
   it('does not reorder the input', () => {
     const input = [project('b', 'Beta', null), project('a', 'Alpha', '2026-01-01T00:00:00Z')];
     sortProjects(input);

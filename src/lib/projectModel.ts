@@ -18,6 +18,7 @@ export const STATUS_LABEL: Record<ProjectStatus, string> = {
 };
 
 export function compareProjects(a: ProjectRecord, b: ProjectRecord): number {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
   const aTime = a.meta.lastCommit?.getTime() ?? null;
   const bTime = b.meta.lastCommit?.getTime() ?? null;
   if (aTime !== bTime) {
