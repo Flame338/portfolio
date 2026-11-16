@@ -9,9 +9,14 @@ import Postings from '../components/Postings.astro';
 import Work from '../components/Work.astro';
 import Layout from '../layouts/Layout.astro';
 import { profile } from '../data/portfolio.ts';
+import { personJsonLd } from '../lib/jsonLd.ts';
+import { homePath } from '../lib/paths.ts';
+
+const path = homePath(import.meta.env.BASE_URL);
+const home = new URL(path, Astro.site).href;
 ---
 
-<Layout title={`${profile.name} · Software engineer`}>
+<Layout title={`${profile.name} · Software engineer`} path={path} jsonLd={personJsonLd(home)}>
   <Header />
   <main id="main" tabindex="-1">
     <Hero />

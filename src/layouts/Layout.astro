@@ -8,28 +8,18 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** Site path of this page, including the base. Omit for pages that should not be indexed. */
+  path?: string;
+  jsonLd?: object | readonly object[];
   noindex?: boolean;
 }
 
-const { title, description = profile.description, noindex = false } = Astro.props;
+const { title, description = profile.description, path, jsonLd = [], noindex = false } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const home = new URL(import.meta.env.BASE_URL, Astro.site).href;
+const canonical = path === undefined ? undefined : new URL(path, Astro.site).href;
+const structuredData = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
 
 const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" fill="#0F4D3A"/><g fill="#EFEDE6"><rect x="3" y="3" width="5" height="5"/><rect x="14" y="3" width="5" height="5"/><rect x="8.5" y="8.5" width="5" height="5"/><rect x="3" y="14" width="5" height="5"/><rect x="14" y="14" width="5" height="5"/></g></svg>`;
-
-const person = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: profile.name,
-  url: home,
-  email: profile.email,
-  jobTitle: 'Intermediate Software Engineer',
-  worksFor: { '@type': 'Organization', name: 'Equifax' },
-  address: { '@type': 'PostalAddress', addressLocality: 'Thiruvananthapuram', addressCountry: 'IN' },
-  alumniOf: 'Mar Baselios College of Engineering and Technology',
-  sameAs: profile.sameAs,
-};
 ---
 
 <!doctype html>
@@ -40,7 +30,8 @@ const person = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#EFEDE6" />
-    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href={`data:image/svg+xml,${encodeURIComponent(favicon)}`} />
     <link rel="preload" href={outfit300} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
@@ -48,11 +39,11 @@ const person = {
     <meta property="og:site_name" content={profile.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    {structuredData.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
     <noscript><style>.finder-control{display:none}</style></noscript>
   </head>
   <body>
