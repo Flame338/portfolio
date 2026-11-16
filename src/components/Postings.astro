@@ -8,7 +8,7 @@ const lit = litSquares('', entries.length, entries.length);
 <section class="invert" aria-labelledby="numbers-title">
   <div class="mosaic-head mono">
     <p>postings for: <span id="finder-shown">everything</span></p>
-    <p>each square is a document; lit squares match</p>
+    <p>each square stands for a document, and the lit ones match</p>
   </div>
   <div class="mosaic" data-mosaic aria-hidden="true">
     {lit.map((on) => <span data-lit={on ? '' : undefined} />)}
