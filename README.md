@@ -17,4 +17,4 @@ A static portfolio built with Astro. The hero is a typo-tolerant search over the
 
 Pushing to `main` runs `.github/workflows/deploy.yml`, which tests, builds and publishes to GitHub Pages. Enable Pages with the GitHub Actions source in the repository settings first.
 
-The site URL and base path default to `https://flame338.github.io` and `/steve-portfolio`. Override them with the `SITE_URL` and `BASE_PATH` environment variables, for example when moving to a custom domain.
+The site URL and base path default to `https://flame338.github.io` and `/portfolio`. Override them with the `SITE_URL` and `BASE_PATH` environment variables, for example when moving to a custom domain.
