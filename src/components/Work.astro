@@ -1,0 +1,37 @@
+---
+import { entryById, projects } from '../data/portfolio.ts';
+---
+
+<section id="work" aria-labelledby="work-title">
+  <div class="section-head reveal">
+    <h2 id="work-title">Two projects, one engine.</h2>
+    <p>The library does the ranking. The terminal tool proves it holds up on a whole disk.</p>
+  </div>
+  <ul class="cards">
+    {
+      projects.map((project) => {
+        const { title } = entryById(project.entryId);
+        return (
+          <li>
+            <article id={project.entryId} class="card reveal">
+              <div class="meta mono">
+                <span>{project.index}</span>
+                <span>{project.format}</span>
+              </div>
+              <h3>{title}</h3>
+              <p>{project.summary}</p>
+              <ul class="points">
+                {project.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+              <a class="button cell hover-ink" href={project.sourceHref}>
+                Read the source<span class="visually-hidden"> of {title}</span>
+              </a>
+            </article>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>

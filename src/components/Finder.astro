@@ -1,0 +1,46 @@
+---
+import { entries } from '../data/portfolio.ts';
+import { entryTokens } from '../lib/search.ts';
+---
+
+<div class="finder">
+  <search class="finder-control">
+    <label class="mono" for="finder-input">Search this portfolio (typos are fine)</label>
+    <input
+      id="finder-input"
+      class="finder-input"
+      type="search"
+      placeholder="try: serch, rust, angular, memory"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="none"
+      spellcheck="false"
+      enterkeyhint="search"
+    />
+    <p id="finder-count" class="mono finder-count" aria-live="polite">{entries.length} of {entries.length} entries</p>
+  </search>
+  <ul class="results" aria-label="Portfolio entries">
+    {
+      entries.map((entry) => {
+        const Row = entry.href ? 'a' : 'div';
+        return (
+          <li data-finder-row data-tokens={entryTokens(entry).join(' ')}>
+            <Row class:list={['row', entry.href && 'cell hover-ink']} href={entry.href ?? undefined}>
+              <span class="row-kind mono">{entry.kind}</span>
+              <span class="row-body">
+                <span class="row-title">{entry.title}</span>
+                <span class="row-line">{entry.line}</span>
+              </span>
+              <span class="row-tag mono">{entry.tag}</span>
+            </Row>
+          </li>
+        );
+      })
+    }
+  </ul>
+  <p id="finder-empty" class="empty" hidden>Nothing matches. Even a one-edit typo budget has limits.</p>
+</div>
+
+<script>
+  import '../scripts/finder.ts';
+</script>

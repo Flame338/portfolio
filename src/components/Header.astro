@@ -1,0 +1,23 @@
+---
+import { navCta, navLinks, profile } from '../data/portfolio.ts';
+---
+
+<header class="site-header">
+  <a class="brand cell hover-ink" href="#top">{profile.brand}<span class="mono">/ index</span></a>
+  <nav aria-label="Primary">
+    <ul>
+      {
+        navLinks.map((link) => (
+          <li>
+            <a class="nav-link cell hover-ink" href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a class="nav-link nav-cta cell hover-paper" href={navCta.href}>{navCta.label}</a>
+      </li>
+    </ul>
+  </nav>
+</header>

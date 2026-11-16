@@ -1,0 +1,23 @@
+---
+import { contactLinks } from '../data/portfolio.ts';
+---
+
+<section id="contact" class="contact" aria-labelledby="contact-title">
+  <div class="contact-grid">
+    <div class="contact-title">
+      <h2 id="contact-title">Have a query worth answering?</h2>
+    </div>
+    <ul class="contact-links">
+      {
+        contactLinks.map((link) => (
+          <li class="reveal">
+            <a class="cell hover-ink" href={link.href}>
+              <span>{link.label}</span>
+              <span>{link.value}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

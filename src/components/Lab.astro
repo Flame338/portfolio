@@ -1,0 +1,24 @@
+---
+import { entryById, labNotes } from '../data/portfolio.ts';
+---
+
+<section id="lab" aria-labelledby="lab-title">
+  <div class="section-head reveal">
+    <h2 id="lab-title">Lab</h2>
+    <p>Smaller builds and experiments.</p>
+  </div>
+  <ul class="lab-list">
+    {
+      labNotes.map((note) => {
+        const { title, tag } = entryById(note.entryId);
+        return (
+          <li class="reveal">
+            <h3 class="lab-title">{title}</h3>
+            <p>{note.body}</p>
+            <span class="mono">{tag}</span>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>

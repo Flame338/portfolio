@@ -1,0 +1,25 @@
+---
+import Contact from '../components/Contact.astro';
+import Experience from '../components/Experience.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Lab from '../components/Lab.astro';
+import Postings from '../components/Postings.astro';
+import Work from '../components/Work.astro';
+import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/portfolio.ts';
+---
+
+<Layout title={`${profile.name} · Software engineer`}>
+  <Header />
+  <main id="main" tabindex="-1">
+    <Hero />
+    <Postings />
+    <Work />
+    <Lab />
+    <Experience />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>

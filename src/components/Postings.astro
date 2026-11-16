@@ -1,0 +1,27 @@
+---
+import { entries, stats } from '../data/portfolio.ts';
+import { litSquares } from '../lib/mosaic.ts';
+
+const lit = litSquares('', entries.length, entries.length);
+---
+
+<section class="invert" aria-labelledby="numbers-title">
+  <div class="mosaic-head mono">
+    <p>postings for: <span id="finder-shown">everything</span></p>
+    <p>each square is a document; lit squares match</p>
+  </div>
+  <div class="mosaic" data-mosaic aria-hidden="true">
+    {lit.map((on) => <span data-lit={on ? '' : undefined} />)}
+  </div>
+  <h2 id="numbers-title" class="visually-hidden">In numbers</h2>
+  <ul class="stats">
+    {
+      stats.map((stat) => (
+        <li class="stat reveal">
+          <p class="stat-value">{stat.value}</p>
+          <p class="stat-caption">{stat.caption}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

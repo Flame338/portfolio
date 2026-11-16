@@ -1,9 +1,14 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
+const site = process.env.SITE_URL ?? 'https://flame338.github.io';
+const base = process.env.BASE_PATH ?? '/steve-portfolio';
+// The sitemap integration reports the 404 route as the base URL without its trailing slash.
+const notFoundUrl = new URL(site).origin + base.replace(/\/$/, '');
+
 export default defineConfig({
-  site: process.env.SITE_URL ?? 'https://flame338.github.io',
-  base: process.env.BASE_PATH ?? '/steve-portfolio',
-  integrations: [sitemap({ filter: (page) => !page.endsWith('/404/') })],
+  site,
+  base,
+  integrations: [sitemap({ filter: (page) => page !== notFoundUrl })],
   build: { inlineStylesheets: 'always' },
 });

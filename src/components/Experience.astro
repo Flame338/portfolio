@@ -1,0 +1,23 @@
+---
+import { employment } from '../data/portfolio.ts';
+---
+
+<section id="experience" class="invert" aria-labelledby="experience-title">
+  <div class="experience-grid">
+    <div class="experience-intro">
+      <p class="mono">{employment.period}</p>
+      <h2 id="experience-title">{employment.company}</h2>
+      <p>{employment.summary}</p>
+    </div>
+    <ul class="roles">
+      {
+        employment.roles.map((role) => (
+          <li id={role.entryId} class="reveal">
+            <h3 class="role-headline">{role.headline}</h3>
+            <p>{role.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

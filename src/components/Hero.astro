@@ -1,0 +1,15 @@
+---
+import { profile } from '../data/portfolio.ts';
+import Finder from './Finder.astro';
+---
+
+<section id="top" class="hero" aria-labelledby="hero-title">
+  <div class="hero-grid">
+    <div class="hero-intro">
+      <p class="mono">{profile.eyebrow}</p>
+      <h1 id="hero-title">{profile.headline}</h1>
+      <p>{profile.intro}</p>
+    </div>
+    <Finder />
+  </div>
+</section>
