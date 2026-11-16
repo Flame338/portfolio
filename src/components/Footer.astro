@@ -1,8 +1,15 @@
 ---
 import { profile } from '../data/portfolio.ts';
+
+interface Props {
+  /** Replaces the education line. Pass null to show no note. */
+  note?: string | null;
+}
+
+const { note = profile.education } = Astro.props;
 ---
 
 <footer class="site-footer mono">
-  <span>{profile.education}</span>
+  {note && <span>{note}</span>}
   <span>{profile.location}</span>
 </footer>
