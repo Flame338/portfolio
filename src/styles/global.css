@@ -233,6 +233,10 @@
     @container (min-width: 50rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    > li {
+      display: grid;
+    }
   }
 
   .experience-grid {
