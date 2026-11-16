@@ -10,5 +10,6 @@ export default defineConfig({
   site,
   base,
   integrations: [sitemap({ filter: (page) => page !== notFoundUrl })],
+  markdown: { syntaxHighlight: false },
   build: { inlineStylesheets: 'always' },
 });
