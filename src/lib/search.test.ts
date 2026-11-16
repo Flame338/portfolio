@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { entries } from '../data/portfolio.ts';
+import { workEntries } from '../data/portfolio.ts';
+import { sampleProjects } from './fixtures.ts';
+import { projectEntry } from './projectModel.ts';
 import { matches, search, tokenize } from './search.ts';
+
+const entries = [...sampleProjects.map((project) => projectEntry(project, '/portfolio')), ...workEntries];
 
 const ids = (query: string) => search(entries, query).map((e) => e.id);
 
@@ -17,8 +21,8 @@ describe('search', () => {
     assert.equal(search(entries, '   ').length, entries.length);
   });
 
-  it('finds LuxCore from the typo "serch"', () => {
-    assert.ok(ids('serch').includes('luxcore'));
+  it('finds LuxCore and Recall from the typo "serch"', () => {
+    assert.deepEqual(ids('serch'), ['luxcore', 'recall']);
   });
 
   it('finds Recall for "rust"', () => {
@@ -39,9 +43,9 @@ describe('search', () => {
     assert.deepEqual(ids('rux'), []);
   });
 
-  it('finds lab entries', () => {
-    assert.ok(ids('godot').includes('night-shift'));
-    assert.ok(ids('neetcode').includes('derive'));
+  it('finds projects without a page of their own yet', () => {
+    assert.ok(ids('godot').includes('night-shift-agents'));
+    assert.ok(ids('tape').includes('te-001'));
   });
 
   it('returns nothing for nonsense', () => {

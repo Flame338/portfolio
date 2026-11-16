@@ -1,0 +1,62 @@
+---
+import { projectHref, projectsIntro, STATUS_LABEL } from '../lib/projectModel.ts';
+import { getProjects } from '../lib/projects.ts';
+
+const projects = await getProjects();
+const featured = projects.filter((project) => project.data.featured);
+const base = import.meta.env.BASE_URL;
+---
+
+<section id="projects" aria-labelledby="projects-title">
+  <div class="section-head reveal">
+    <h2 id="projects-title">Projects</h2>
+    <p>{projectsIntro(featured.length)}</p>
+  </div>
+  {
+    featured.length > 0 && (
+      <ul class="cards">
+        {featured.map(({ slug, data }) => (
+          <li>
+            <article class="card reveal">
+              <div class="meta mono">
+                <span>featured · {data.language}</span>
+                <span>{STATUS_LABEL[data.status]}</span>
+              </div>
+              <h3>{data.title}</h3>
+              <p>{data.summary}</p>
+              <div class="actions">
+                <a class="button button-primary cell hover-paper" href={projectHref(base, slug)}>
+                  Read about it<span class="visually-hidden">: {data.title}</span>
+                </a>
+                {data.source && (
+                  <a class="button cell hover-ink" href={data.source}>
+                    Source<span class="visually-hidden">: {data.title}</span>
+                  </a>
+                )}
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  <p id="all-projects-label" class="list-head mono">
+    <span>all projects · {projects.length}</span>
+    <span>newest first</span>
+  </p>
+  <ul class="project-list" aria-labelledby="all-projects-label">
+    {
+      projects.map(({ slug, data }) => (
+        <li>
+          <a class="project-row cell hover-ink" href={projectHref(base, slug)}>
+            <span class="project-title">{data.title}</span>
+            <span class="project-line">{data.line}</span>
+            <span class="project-status mono">{STATUS_LABEL[data.status]}</span>
+            <span class="project-language mono">{data.language}</span>
+            <span class="project-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

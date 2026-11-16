@@ -1,13 +1,26 @@
 ---
-import { navCta, navLinks, profile } from '../data/portfolio.ts';
+import { navCta, navLinks, profile, projectPageLinks } from '../data/portfolio.ts';
+import { homePath } from '../lib/paths.ts';
+
+interface Props {
+  /** Breadcrumb after the brand. Pass it on pages other than the home page. */
+  crumb?: string;
+}
+
+const { crumb } = Astro.props;
+const home = homePath(import.meta.env.BASE_URL);
+const onHome = crumb === undefined;
+const brandHref = onHome ? '#top' : home;
+const links = onHome ? navLinks : projectPageLinks.map((link) => ({ ...link, href: home + link.href }));
+const cta = onHome ? navCta : { ...navCta, href: home + navCta.href };
 ---
 
 <header class="site-header">
-  <a class="brand cell hover-ink" href="#top">{profile.brand}<span class="mono">/ index</span></a>
+  <a class="brand cell hover-ink" href={brandHref}>{profile.brand}<span class="mono">{crumb ?? '/ index'}</span></a>
   <nav aria-label="Primary">
     <ul>
       {
-        navLinks.map((link) => (
+        links.map((link) => (
           <li>
             <a class="nav-link cell hover-ink" href={link.href}>
               {link.label}
@@ -16,7 +29,7 @@ import { navCta, navLinks, profile } from '../data/portfolio.ts';
         ))
       }
       <li>
-        <a class="nav-link nav-cta cell hover-paper" href={navCta.href}>{navCta.label}</a>
+        <a class="nav-link nav-cta cell hover-paper" href={cta.href}>{cta.label}</a>
       </li>
     </ul>
   </nav>

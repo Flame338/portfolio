@@ -1,4 +1,4 @@
-export type EntryKind = 'project' | 'work' | 'lab';
+export type EntryKind = 'project' | 'work';
 
 export interface Entry {
   id: string;
@@ -10,25 +10,7 @@ export interface Entry {
   keywords: readonly string[];
 }
 
-export const entries = [
-  {
-    id: 'luxcore',
-    kind: 'project',
-    title: 'LuxCore',
-    line: 'A search library you can embed, with BM25 ranking and typo tolerance',
-    tag: 'C++20',
-    href: '#luxcore',
-    keywords: ['search', 'library', 'lucene', 'bm25', 'index', 'memory', 'fuzzy', 'typo', 'cpp', 'c++', 'engine'],
-  },
-  {
-    id: 'recall',
-    kind: 'project',
-    title: 'Recall',
-    line: 'Code search in the terminal, across all my projects',
-    tag: 'Rust',
-    href: '#recall',
-    keywords: ['rust', 'terminal', 'tui', 'daemon', 'watcher', 'code', 'search', 'memory', 'files'],
-  },
+export const workEntries = [
   {
     id: 'validation',
     kind: 'work',
@@ -83,80 +65,9 @@ export const entries = [
     href: '#sequence',
     keywords: ['postgres', 'postgresql', 'sql', 'database', 'migration', 'bug', 'debugging', 'equifax'],
   },
-  {
-    id: 'te-001',
-    kind: 'lab',
-    title: 'TE-001',
-    line: 'A Raspberry Pi media player for CD, tape, AirPlay and Bluetooth',
-    tag: 'Python',
-    href: null,
-    keywords: ['raspberry', 'pi', 'media', 'player', 'airplay', 'bluetooth', 'hardware'],
-  },
-  {
-    id: 'night-shift',
-    kind: 'lab',
-    title: 'Night-shift agents',
-    line: 'A turn-based game that six scheduled AI agents build',
-    tag: 'C++ · Godot',
-    href: null,
-    keywords: ['cpp', 'c++', 'godot', 'game', 'agents', 'linear', 'tickets', 'pull', 'requests'],
-  },
-  {
-    id: 'derive',
-    kind: 'lab',
-    title: 'Derive',
-    line: 'A trainer for data-structure theory across all 150 NeetCode problems',
-    tag: 'JavaScript',
-    href: null,
-    keywords: ['javascript', 'neetcode', 'algorithms', 'visualization', 'trainer'],
-  },
 ] as const satisfies readonly Entry[];
 
-export type EntryId = (typeof entries)[number]['id'];
-
-export const entryById = (id: EntryId): Entry => {
-  const entry = entries.find((e) => e.id === id);
-  if (!entry) throw new Error(`Unknown entry: ${id}`);
-  return entry;
-};
-
-export interface Project {
-  entryId: EntryId;
-  index: string;
-  format: string;
-  summary: string;
-  points: readonly string[];
-  sourceHref: string;
-}
-
-export const projects: readonly Project[] = [
-  {
-    entryId: 'luxcore',
-    index: '01 · C++20',
-    format: 'library',
-    summary:
-      'A full-text search library you can embed, modeled on Apache Lucene. It has an inverted index, BM25 ranking, search-as-you-type that forgives typos, and a query parser with booleans and phrases. The index saves to one binary file, and loading checks that file before allocating anything.',
-    points: [
-      'Needs only the C++ standard library, and ships a C API with a Python example',
-      'You can keep searching while another thread adds documents',
-      'CI builds on g++ and clang++, debug and release, with warnings as errors',
-    ],
-    sourceHref: 'https://github.com/Flame338/LuxCore',
-  },
-  {
-    entryId: 'recall',
-    index: '02 · Rust',
-    format: 'terminal tool',
-    summary:
-      'Code search in the terminal, across every project on my machine. A background daemon watches the folders, so an edit shows up in results about a second after I save. Reopening a project only re-indexes the files that changed.',
-    points: [
-      'Calls LuxCore through its C API',
-      'Memory per indexed file went from 25.7 KB to 3.9 KB',
-      'Has a JSON command line for scripts, and can search all projects at once',
-    ],
-    sourceHref: 'https://github.com/Flame338/recall-tui',
-  },
-];
+export type EntryId = (typeof workEntries)[number]['id'];
 
 export interface Stat {
   value: string;
@@ -167,26 +78,6 @@ export const stats: readonly Stat[] = [
   { value: '1.1 ms', caption: 'for the slowest 1% of keystrokes on 100,000 documents. It was 2.0 ms. LuxCore.' },
   { value: '3.4×', caption: 'less index memory, from 387 MB to 114 MB. The saved index is byte-for-byte the same. LuxCore.' },
   { value: '13.7×', caption: 'faster indexing of a whole drive, from 1,286 to 17,614 files a second. Recall.' },
-];
-
-export interface LabNote {
-  entryId: EntryId;
-  body: string;
-}
-
-export const labNotes: readonly LabNote[] = [
-  {
-    entryId: 'te-001',
-    body: "A Raspberry Pi media player for CD, tape, AirPlay and Bluetooth. I don't have the Pi yet, so for now it runs on a virtual device, where it recovered from 20 out of 20 simulated power cuts.",
-  },
-  {
-    entryId: 'night-shift',
-    body: 'A turn-based game that six scheduled AI agents build from Linear tickets. I approve their plans and answer their critiques. 126 pull requests have merged so far.',
-  },
-  {
-    entryId: 'derive',
-    body: 'A trainer for data-structure theory that covers all 150 NeetCode problems. Each step-through visualization is recorded from a real run of the algorithm.',
-  },
 ];
 
 export interface Role {
@@ -246,10 +137,14 @@ export interface NavLink {
 }
 
 export const navLinks: readonly NavLink[] = [
-  { label: 'Work', href: '#work' },
-  { label: 'Lab', href: '#lab' },
+  { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
   { label: 'GitHub', href: 'https://github.com/Flame338' },
+];
+
+export const projectPageLinks: readonly NavLink[] = [
+  { label: 'All projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
 ];
 
 export const navCta: NavLink = { label: 'Get in touch', href: '#contact' };

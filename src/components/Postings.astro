@@ -1,7 +1,12 @@
 ---
-import { entries, stats } from '../data/portfolio.ts';
+import { stats, type Entry } from '../data/portfolio.ts';
 import { litSquares } from '../lib/mosaic.ts';
 
+interface Props {
+  entries: readonly Entry[];
+}
+
+const { entries } = Astro.props;
 const lit = litSquares('', entries.length, entries.length);
 ---
 

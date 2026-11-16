@@ -1,6 +1,12 @@
 ---
-import { profile } from '../data/portfolio.ts';
+import { profile, type Entry } from '../data/portfolio.ts';
 import Finder from './Finder.astro';
+
+interface Props {
+  entries: readonly Entry[];
+}
+
+const { entries } = Astro.props;
 ---
 
 <section id="top" class="hero" aria-labelledby="hero-title">
@@ -10,6 +16,6 @@ import Finder from './Finder.astro';
       <h1 id="hero-title">{profile.headline}</h1>
       <p>{profile.intro}</p>
     </div>
-    <Finder />
+    <Finder entries={entries} />
   </div>
 </section>

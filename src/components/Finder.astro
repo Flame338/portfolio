@@ -1,6 +1,12 @@
 ---
-import { entries } from '../data/portfolio.ts';
+import type { Entry } from '../data/portfolio.ts';
 import { entryTokens } from '../lib/search.ts';
+
+interface Props {
+  entries: readonly Entry[];
+}
+
+const { entries } = Astro.props;
 ---
 
 <div class="finder">
