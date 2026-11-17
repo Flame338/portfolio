@@ -2,8 +2,6 @@ import type { Entry } from '../data/portfolio.ts';
 
 export type Searchable = Pick<Entry, 'title' | 'line' | 'tag' | 'keywords'>;
 
-const FUZZY_MIN_LENGTH = 5;
-
 export function tokenize(text: string): string[] {
   return text
     .toLowerCase()
@@ -16,26 +14,32 @@ export function entryTokens(entry: Searchable): string[] {
   return [...new Set(all)];
 }
 
-function withinOneEdit(a: string, b: string): boolean {
-  if (Math.abs(a.length - b.length) > 1) return false;
-  let i = 0;
-  while (i < a.length && i < b.length && a[i] === b[i]) i++;
-  if (i === a.length || i === b.length) return true;
-  return (
-    a.slice(i + 1) === b.slice(i + 1) ||
-    a.slice(i + 1) === b.slice(i) ||
-    a.slice(i) === b.slice(i + 1)
-  );
+// The same limits as LuxCore's fuzzy_max_distance, so the site forgives what Recall and LuxCore forgive.
+function fuzzyMaxDistance(length: number): number {
+  if (length <= 2) return 0;
+  if (length <= 5) return 1;
+  return 2;
+}
+
+function withinDistance(a: string, b: string, max: number): boolean {
+  if (Math.abs(a.length - b.length) > max) return false;
+  let previous = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const current = [i];
+    for (let j = 1; j <= b.length; j++) {
+      const substitution = previous[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1);
+      current[j] = Math.min(previous[j] + 1, current[j - 1] + 1, substitution);
+    }
+    if (Math.min(...current) > max) return false;
+    previous = current;
+  }
+  return previous[b.length] <= max;
 }
 
 function termMatchesToken(term: string, token: string): boolean {
   if (token.startsWith(term)) return true;
-  if (term.length < FUZZY_MIN_LENGTH) return false;
-  // A dropped or doubled letter shifts the prefix by one, so compare three prefix lengths.
-  for (let length = term.length - 1; length <= term.length + 1; length++) {
-    if (withinOneEdit(token.slice(0, length), term)) return true;
-  }
-  return false;
+  const max = fuzzyMaxDistance(term.length);
+  return max > 0 && withinDistance(term, token, max);
 }
 
 export function matchesTokens(tokens: readonly string[], query: string): boolean {

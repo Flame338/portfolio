@@ -38,9 +38,22 @@ describe('search', () => {
     assert.deepEqual(ids('rust spanish'), []);
   });
 
-  it('prefix-matches short terms without fuzziness', () => {
+  it('prefix-matches short terms', () => {
     assert.ok(ids('rus').includes('recall'));
-    assert.deepEqual(ids('rux'), []);
+  });
+
+  it('forgives no typo in a word of one or two letters', () => {
+    assert.deepEqual(ids('rx'), []);
+  });
+
+  it('forgives one typo in a word of three to five letters', () => {
+    assert.ok(ids('sqk').includes('sequence'));
+    assert.ok(ids('ruxt').includes('recall'));
+    assert.ok(!ids('srach').includes('luxcore'));
+  });
+
+  it('forgives two typos in a word of six letters or more', () => {
+    assert.deepEqual(ids('angluar'), ['delivery']);
   });
 
   it('finds projects without a page of their own yet', () => {
