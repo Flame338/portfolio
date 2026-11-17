@@ -40,6 +40,9 @@ A project without a public repo can be a plain folder at the same path. Its page
 | `source`   | no       | A URL. Adds a Source button and row.                                     |
 | `numbers`  | no       | Up to three `value` and `caption` pairs for the band under the header.   |
 | `summary`  | yes      | Two or three sentences. Used on the card and as the meta description.    |
+| `cover`    | no       | `src` and `alt`. Shown on the card and under the project header.         |
+
+`cover.src` is a path relative to `portfolio.md`, such as `./cover.png`. The build resizes it and converts it to WebP. A screenshot or a frame of a terminal recording at 1600px wide or more works best.
 
 Quote a `value` that is a bare number, such as `"150"`, so YAML keeps it as text.
 
