@@ -29,12 +29,12 @@ describe('search', () => {
     assert.ok(ids('rust').includes('recall'));
   });
 
-  it('finds both Angular entries from the typo "angulr"', () => {
-    assert.deepEqual(ids('angulr'), ['onboarding', 'upgrade']);
+  it('finds the Angular entry from the typo "angulr"', () => {
+    assert.deepEqual(ids('angulr'), ['delivery']);
   });
 
   it('requires every term to match', () => {
-    assert.deepEqual(ids('angular spanish'), ['onboarding']);
+    assert.deepEqual(ids('angular spanish'), ['delivery']);
     assert.deepEqual(ids('rust spanish'), []);
   });
 

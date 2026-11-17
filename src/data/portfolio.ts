@@ -12,15 +12,6 @@ export interface Entry {
 
 export const workEntries = [
   {
-    id: 'validation',
-    kind: 'work',
-    title: 'Identifier validation service',
-    line: 'One service replaced validation logic copied across several',
-    tag: 'Spring Boot',
-    href: '#validation',
-    keywords: ['java', 'spring', 'boot', 'microservice', 'validation', 'credit', 'equifax'],
-  },
-  {
     id: 'agentic',
     kind: 'work',
     title: 'Agentic tooling rollout',
@@ -28,24 +19,6 @@ export const workEntries = [
     tag: 'AI tooling',
     href: '#agentic',
     keywords: ['ai', 'agents', 'agentic', 'training', 'tooling', 'equifax', 'jira'],
-  },
-  {
-    id: 'onboarding',
-    kind: 'work',
-    title: 'Consumer onboarding flow',
-    line: 'Route guards, reactive forms, English and Spanish',
-    tag: 'Angular',
-    href: '#onboarding',
-    keywords: ['angular', 'typescript', 'forms', 'i18n', 'spanish', 'frontend', 'equifax'],
-  },
-  {
-    id: 'upgrade',
-    kind: 'work',
-    title: 'Admin portal upgrade',
-    line: 'Angular 13 to 20, with better accessibility',
-    tag: 'Angular',
-    href: '#upgrade',
-    keywords: ['angular', 'upgrade', 'accessibility', 'typescript', 'frontend', 'equifax'],
   },
   {
     id: 'security',
@@ -64,6 +37,15 @@ export const workEntries = [
     tag: 'PostgreSQL',
     href: '#sequence',
     keywords: ['postgres', 'postgresql', 'sql', 'database', 'migration', 'bug', 'debugging', 'equifax'],
+  },
+  {
+    id: 'delivery',
+    kind: 'work',
+    title: 'Services and front ends',
+    line: 'A validation microservice, a bilingual onboarding flow, Angular 13 to 20',
+    tag: 'Spring Boot · Angular',
+    href: '#delivery',
+    keywords: ['java', 'spring', 'boot', 'microservice', 'validation', 'angular', 'typescript', 'forms', 'i18n', 'spanish', 'upgrade', 'accessibility', 'frontend', 'credit', 'equifax'],
   },
 ] as const satisfies readonly Entry[];
 
@@ -99,24 +81,9 @@ export const employment: Employment = {
   summary: 'Intermediate Software Engineer since August 2026. I work on five Spring Boot and Angular systems in a team of eight.',
   roles: [
     {
-      entryId: 'validation',
-      headline: 'One ruleset',
-      body: 'I designed one identifier-validation microservice to replace logic that was copied across services, then moved those services onto it with regression tests in place.',
-    },
-    {
       entryId: 'agentic',
       headline: '57 engineers',
       body: 'I co-led the rollout of agentic AI developer tooling and trained 57 engineers on it. Jira data showed maintenance tasks taking about half as long afterwards.',
-    },
-    {
-      entryId: 'onboarding',
-      headline: 'English and Spanish',
-      body: 'I built the consumer onboarding flow in Angular, in both languages, with route guards, reactive forms and recovery when a submission fails.',
-    },
-    {
-      entryId: 'upgrade',
-      headline: 'v13 to v20',
-      body: 'I upgraded an Angular admin portal across seven major versions, replaced the deprecated APIs and fixed accessibility problems along the way.',
     },
     {
       entryId: 'security',
@@ -127,6 +94,11 @@ export const employment: Employment = {
       entryId: 'sequence',
       headline: 'Fixed before UAT',
       body: 'After a Spring Boot upgrade, duplicate-ID errors appeared. I traced them to a database migration that had reset the audit-log sequence, and it was fixed before users saw it.',
+    },
+    {
+      entryId: 'delivery',
+      headline: 'Core delivery',
+      body: 'I built an identifier-validation microservice to replace logic copied across services, and a consumer onboarding flow in Angular, in English and Spanish. I also upgraded an Angular admin portal from v13 to v20 and fixed its accessibility problems.',
     },
   ],
 };
