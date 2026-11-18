@@ -139,9 +139,9 @@ export const profile = {
   eyebrow: 'Intermediate Software Engineer · Equifax · Thiruvananthapuram',
   headline: 'Software that answers before you finish typing.',
   intro:
-    "At Equifax I build Spring Boot services and Angular front ends for identity and credit workflows. Outside work I'm writing a search engine in C++ and a terminal client for it in Rust. The list on this page is searchable the same way my library searches text, so try a typo.",
+    "At Equifax I build Spring Boot services and Angular front ends for identity and credit workflows. Outside work I wrote a search engine in C++, and I'm building a terminal client for it in Rust. The list on this page is searchable the same way my library searches text, so try a typo.",
   description:
-    'Steve Thomas is an Intermediate Software Engineer at Equifax who builds Spring Boot services, Angular front ends, a C++ search library and a Rust terminal client.',
+    'Steve Thomas is an Intermediate Software Engineer at Equifax who builds Spring Boot services and Angular front ends, and wrote a C++ search library.',
   education: 'B.Tech Computer Science, Mar Baselios College of Engineering and Technology, 2024',
   location: 'Thiruvananthapuram, India',
   email: 'stevethomas499@gmail.com',

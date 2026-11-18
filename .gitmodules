@@ -1,0 +1,3 @@
+[submodule "projects/luxcore"]
+	path = projects/luxcore
+	url = https://github.com/Flame338/LuxCore
